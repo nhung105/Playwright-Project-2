@@ -12,3 +12,8 @@ test('wait load', async ({ page }) => {
     await expect(page.getByText('Some text in my newly loaded page..')).toBeVisible();
 })
 
+test('sncnsnc', async ({ page }) => {
+    console.log
+})
+
+
