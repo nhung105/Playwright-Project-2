@@ -1,17 +1,21 @@
 import { Locator, Page } from "@playwright/test";
-
-
-type RegisterFormFields = {
-
+import { countReset } from "console";
+export type RegisterFormFields = {
+    firstName?: string,
+    lastName?: string,
+    phone?: number,
+    country?: string,
+    email: string,
+    password: string
 }
-class RegisterForm {
+export default class RegisterForm {
     readonly page: Page;
     readonly firstName: Locator;
     readonly lastName: Locator;
     readonly phone: Locator;
     readonly country: Locator;
-    readonly email?: Locator;
-    readonly password?: Locator;
+    readonly email: Locator;
+    readonly password: Locator;
     readonly agreeToTerm: Locator;
     readonly registerButton: Locator;
 
@@ -28,6 +32,19 @@ class RegisterForm {
     }
     async navigate() {
         await this.page.goto('https://qa-practice.netlify.app/register');
+    }
+    async fillForm({ firstName, lastName, phone, country, email, password }: RegisterFormFields) {
+        if (firstName) await this.firstName.fill(firstName)
+        if (lastName) await this.firstName.fill(lastName)
+        if (phone) await this.firstName.fill(phone.toString())
+        if (country) await this.firstName.fill(country)
+
+        await this.email.fill(email)
+        await this.password.fill(password)
+    }
+    async submitForm() {
+        await this.agreeToTerm.click();
+        await this.registerButton.click()
     }
 
 }
